@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>soscleaner by jduncan-rva</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">soscleaner</h1>
+        <p class="header">A python application to clean sensitive and un-wanted data from an existing sosreport</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/jduncan-rva/soscleaner/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/jduncan-rva/soscleaner/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/jduncan-rva/soscleaner">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/jduncan-rva">jduncan-rva</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a name="soscleaner" class="anchor" href="#soscleaner"><span class="octicon octicon-link"></span></a>SOSCleaner</h1>
+
+<h2>
+<a name="purpose" class="anchor" href="#purpose"><span class="octicon octicon-link"></span></a>Purpose</h2>
+
+<p>SOSCleaner helps users in environments that have data export restrictions clean up an sosreport so it can be safely uploaded to a support group for analysis. IT IS NOT ALL that should be done for this process, but it does help with the most common and repetitive items.</p>
+
+<h2>
+<a name="what-does-it-do" class="anchor" href="#what-does-it-do"><span class="octicon octicon-link"></span></a>What Does it Do?</h2>
+
+<ul>
+<li>Scrubs Binary Files - Binary Files cannot easily be visually scanned. They are left out of a 'cleaned' sosreport</li>
+<li>IP Address Obfuscation - IPv4 addresses in the sosreport are obfuscated consistently throughout all files.  For example, if 192.168.100.5 is obfuscated to 10.0.0.68, it will appear as 10.0.0.68 in all files within the sosreport. This means that troubleshooting can still take place.</li>
+<li>Hostname Obfuscation - Hostnames are obfuscated consistently troughout all files, much like the IP Address functionality. Based on the system's hostname, if the hostname for the system in question is an FQDN (Fully Qualified Domain Name), all hostnames on that domain are obfuscated. If the hostname is NOT an FQDN, then all examples of that hostname itself are obfuscated.</li>
+</ul><h2>
+<a name="project-information" class="anchor" href="#project-information"><span class="octicon octicon-link"></span></a>Project Information</h2>
+
+<ul>
+<li>Maintainer - Jamie Duncan (<a href="mailto:jduncan@redhat.com">jduncan@redhat.com</a>)</li>
+<li>Source and Issues - <a href="https://github.com/jduncan-rva/soscleaner">https://github.com/jduncan-rva/soscleaner</a>
+</li>
+<li>Git Hub Pages - <a href="http://jduncan-rva.github.io/soscleaner/">http://jduncan-rva.github.io/soscleaner/</a>
+</li>
+<li>Mailing Lists
+
+<ul>
+<li>Development - <a href="mailto:soscleaner-dev@googlegroups.com">soscleaner-dev@googlegroups.com</a>
+</li>
+<li>Announce - <a href="mailto:soscleaner-announce@googlegroups.com">soscleaner-announce@googlegroups.com</a>
+</li>
+</ul>
+</li>
+</ul><h2>
+<a name="usage-basics" class="anchor" href="#usage-basics"><span class="octicon octicon-link"></span></a>Usage Basics</h2>
+
+<ul>
+<li>As a Python Module</li>
+</ul><pre><code>from SOSCleaner import SOSCleaner
+x = SOSCleaner('path/to/sosreport/directory')
+x.clean_report()
+</code></pre>
+
+<ul>
+<li>If intalling the RPM and/or using the executable </li>
+</ul><pre><code>$ /usr/bin/soscleaner --help
+Usage: soscleaner -h [-dl]
+
+Options:
+  -h, --help            show this help message and exit
+  -l LOGLEVEL, --log_level=LOGLEVEL
+                        The Desired Log Level (default = INFO) Options are
+                        DEBUG, INFO, WARNING, ERROR
+  -d, --domain       additional domain to be analyzed (optional)
+
+</code></pre>
+
+<h2>
+<a name="how-do-i-see-the-obfuscated-data" class="anchor" href="#how-do-i-see-the-obfuscated-data"><span class="octicon octicon-link"></span></a>How Do I See The Obfuscated Data?</h2>
+
+<p>The data is available from within the Python class, and as an option passed into the executable script.</p>
+
+<ul>
+<li>If accessing the Python class directly </li>
+</ul><pre><code>from soscleaner import SOSCleaner
+x = SOSCleaner()
+x.clean_report('/path/to/sosreport')
+
+x.ip_db
+{'192.168.1.4':'10.10.10.123', ...}
+
+x.hn_db
+{'server1.myserverfarm.com':'host0.example.com'}
+</code></pre>
+
+<ul>
+<li>If using the command-line application</li>
+</ul><pre><code># soscleaner ~/sosreport.tar.gz
+Working Directory - /tmp/soscleaner-20131209111927
+...
+# ll /tmp/soscleaner*
+-rw-r--r--. 1 root root      54 Dec  9 06:19 /tmp/soscleaner-20131209111927-hostname.csv
+-rw-r--r--. 1 root root    3442 Dec  9 06:19 /tmp/soscleaner-20131209111927-ip.csv
+-rw-r--r--. 1 root root    3542 Dec  9 06:19 /tmp/soscleaner-20131209111927-dn.csv
+-rw-r--r--. 1 root root    1676 Dec  9 06:20 /tmp/soscleaner-20131209111927.log
+-rw-r--r--. 1 root root 4834715 Dec  9 06:20 /tmp/soscleaner-20131209111927.tar.gz
+
+</code></pre>
+
+<h2>
+<a name="what-is-created" class="anchor" href="#what-is-created"><span class="octicon octicon-link"></span></a>What Is Created?</h2>
+
+<ul>
+<li>soscleaner-$session.log is a log of all events that occurred</li>
+<li>soscleaner-$session.tar.gz is a gzip'd tarball containing the obfuscated sosreport</li>
+<li>soscleaner-$session-hostname.csv is a csv of hostnames that have been obfuscated</li>
+<li>soscleaner-$session-ip.csv is a csv of ip addresses that have been obfuscated</li>
+<li>soscleaner-$session-dn.csv is a csv of domainnames that have been obfuscated</li>
+</ul>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
