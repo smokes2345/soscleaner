@@ -65,8 +65,8 @@
 <ul>
 <li>As a Python Module</li>
 </ul><pre><code>from SOSCleaner import SOSCleaner
-x = SOSCleaner('path/to/sosreport/directory')
-x.clean_report()
+x = SOSCleaner()
+x.clean_report('/path/to/sosreport')
 </code></pre>
 
 <ul>
@@ -80,6 +80,7 @@ Options:
                         The Desired Log Level (default = INFO) Options are
                         DEBUG, INFO, WARNING, ERROR
   -d, --domain       additional domain to be analyzed (optional)
+  -q, --quiet        quiet mode. nothing to STDOUT
 
 </code></pre>
 
