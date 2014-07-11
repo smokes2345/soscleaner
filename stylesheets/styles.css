@@ -298,6 +298,7 @@ header li:hover {
 a.buttons {
 	-webkit-font-smoothing: antialiased;
 	background: url(../images/down-arrow.png) no-repeat;
+        color: black;
 	font-weight: normal;
 	text-shadow: rgba(0, 0, 0, 0.4) 0 -1px 0;
 	padding: 0px 2px 2px 22px;
@@ -307,7 +308,7 @@ a.buttons {
 a.link {
         -webkit-font-smoothing: antialiased;
         background: url(../images/globe.png) no-repeat;
-
+        color: black;
         font-weight: normal;
         text-shadow: rgba(0, 0, 0, 0.4) 0 -1px 0;
         padding: 0px 2px 2px 22px;
