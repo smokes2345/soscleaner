@@ -338,9 +338,8 @@ section {
 footer {
   width:170px;
   float:left;
-  clear: both;
   position:fixed;
-  bottom:10px;
+  bottom:0px;
 	padding-left: 50px;
 }
 
