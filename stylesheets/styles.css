@@ -306,7 +306,7 @@ a.buttons {
 
 a.link {
         -webkit-font-smoothing: antialiased;
-        background: url(../images/globe.png) no-repeat;
+        background: url(../images/circle.png) no-repeat;
         font-weight: normal;
         text-shadow: rgba(0, 0, 0, 0.4) 0 -1px 0;
         padding: 2px 2px 2px 22px;
