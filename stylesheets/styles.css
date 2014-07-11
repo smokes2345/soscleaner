@@ -214,10 +214,10 @@ td {
 
 header {
 	background-color: #171717;
-	color: #FDFDFB;
+	color: #BDBDBD;
   width:170px;
   float:left;
-  /* position:fixed; */
+  position:fixed;
 	border: 1px solid #000;
 	-webkit-border-top-right-radius: 4px;
 	-webkit-border-bottom-right-radius: 4px;
@@ -227,7 +227,6 @@ header {
 	border-bottom-right-radius: 4px;
 	padding: 34px 25px 22px 50px;
 	margin: 30px 25px 0 0;
-        height: 100%;
 	-webkit-font-smoothing: antialiased;
 }
 
