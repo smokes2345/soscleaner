@@ -38,14 +38,25 @@
 
 <p>SOSCleaner helps users in environments that have data export restrictions clean up an sosreport so it can be safely uploaded to a support group for analysis. IT IS NOT ALL that should be done for this process, but it does help with the most common and repetitive items.</p>
 
+<h2><a name="news" class="anchor" href="#news"><span class="octicon octicon-link"></span></a>Latest News</h2>
+<ul>
+<li><strong>Version 0.2.1 coming 7/17</strong><br/>
+The biggest enhancement is the ability to add addtional files to be analyzed, or even analyze only a handful of specific files without an sosreport. This is available in the master branch now, and will be tagged and released on 7/17.
+<li><strong>soscleaner is in Fedora!</strong><br/>
+Successfully submitted to Fedora, soscleaner is currently in the F20 updates-testing repository for download and testing. It will be in the standard updates repo soon!
+</li>
+<li><strong>soscleaner is in EPEL 6 (almost)!</strong><br/>
+Successfully submitted to EPEL, we're just waiting on gears to turn. It will go into the epel-testing repo first, and then on into the standard repo.
+</li>
+</ul>
+
 <h2><a name="what-does-it-do" class="anchor" href="#what-does-it-do"><span class="octicon octicon-link"></span></a>What Does it Do?</h2>
 
 <p>Scrubs Binary Files - Binary Files cannot easily be visually scanned. They are left out of a 'cleaned' sosreport</p>
 <p>IP Address Obfuscation - IPv4 addresses in the sosreport are obfuscated consistently throughout all files.  For example, if 192.168.100.5 is obfuscated to 10.0.0.68, it will appear as 10.0.0.68 in all files within the sosreport. This means that troubleshooting can still take place.</p>
 <p>Hostname Obfuscation - Hostnames are obfuscated consistently troughout all files, much like the IP Address functionality. Based on the system's hostname, if the hostname for the system in question is an FQDN (Fully Qualified Domain Name), all hostnames on that domain are obfuscated. If the hostname is NOT an FQDN, then all examples of that hostname itself are obfuscated.</p>
 
-<h2><a name="project-information" class="anchor" href="#project-information"><span class="octicon octicon-link"></span></a>Project Information</h2><h2>
-<a name="usage-basics" class="anchor" href="#usage-basics"><span class="octicon octicon-link"></span></a>Usage Basics</h2>
+<h2><a name="usage-basics" class="anchor" href="#usage-basics"><span class="octicon octicon-link"></span></a>Usage Basics</h2>
 
 <p>As a Python Module</p>
 <pre><code>from SOSCleaner import SOSCleaner
@@ -55,15 +66,21 @@ x.clean_report('/path/to/sosreport')
 
 <p>If intalling the RPM and/or using the executable </p>
 <pre><code>$ /usr/bin/soscleaner --help
-Usage: soscleaner -h [-dl]
+Usage: soscleaner [-ldfq] /path/to/sosreport
 
 Options:
+  --version             show program's version number and exit
   -h, --help            show this help message and exit
   -l LOGLEVEL, --log_level=LOGLEVEL
                         The Desired Log Level (default = INFO) Options are
                         DEBUG, INFO, WARNING, ERROR
-  -d, --domain       additional domain to be analyzed (optional)
-  -q, --quiet        quiet mode. nothing to STDOUT
+  -d DOMAIN, --domain=DOMAIN
+                        additional domain to obfuscate (optional). use a flag
+                        for each additional domain
+  -f FILES, --file=FILES
+                        addtional files to be analyzed in addition to or in
+                        exception of sosreport
+  -q, --quiet           disable output to STDOUT
 
 </code></pre>
 
