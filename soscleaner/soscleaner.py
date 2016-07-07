@@ -48,7 +48,6 @@ class SOSCleaner:
         self.quiet = quiet
         self.domain_count = 0
         self.domains = list()
-        self.keywords = list()
         self.domainname = None
         self.report_dir = '/tmp'
 
@@ -257,7 +256,7 @@ class SOSCleaner:
         It scans a given line and if an IP exists, it obfuscates the IP using _ip4_2_db and returns the altered line
         '''
         try:
-            pattern = r"(((\b25[0-5]|\b2[0-4][0-9]|\b1[0-9][0-9]|\b[1-9][0-9]|\b[1-9]))(\.(\b25[0-5]|\b2[0-4][0-9]|\b1[0-9][0-9]|\b[1-9][0-9]|\b[0-9])){3})"
+            pattern = r"(((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|\b[0-9][0-9]|\b[1-9]\b))(.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?\b)){3}|\b0.0.0.0\b)"
             ips = [each[0] for each in re.findall(pattern, line)]
             if len(ips) > 0:
                 for ip in ips:
@@ -474,10 +473,14 @@ class SOSCleaner:
                     if os.path.isfile(f):
                         with open(f, 'r') as klist:
                             for keyword in klist.readlines():
-                                o_kw = "keyword%s" % k_count
-                                self.kw_db[keyword.rstrip()] = o_kw
-                                self.logger.con_out("Added Obfuscated Keyword - %s", o_kw)
-                                k_count += 1
+                                keyword = keyword.rstrip()
+                                if len(keyword) > 1:
+                                    o_kw = "keyword%s" % k_count
+                                    self.kw_db[keyword] = o_kw
+                                    self.logger.con_out("Added %s character Obfuscated Keyword - %s" % (len(keyword), o_kw))
+                                    k_count += 1
+                                else:
+                                    self.logger.con_out("Unable to add Obfuscated Keyword.")
                         self.logger.con_out("Added Keyword Contents from file - %s", f)
 
                     else:
@@ -798,7 +801,7 @@ class SOSCleaner:
 
             except Exception, e: # pragma: no cover
                 self.logger.exception(e)
-                raise Exception("CleanFile Error: Cannot Open File For Reading - %s" % f)
+                raise e 
 
             try:
                 if len(data) > 0:
