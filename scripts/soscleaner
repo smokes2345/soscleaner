@@ -39,7 +39,7 @@ def main():
         parser.print_help()
         sys.exit(1)
 
-    cleaner = SOSCleaner(quiet = options.quiet)
+    cleaner = SOSCleaner(quiet=options.quiet, options=options)
 
     sosreport = None
     if args:
