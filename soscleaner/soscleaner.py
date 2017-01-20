@@ -111,8 +111,8 @@ class SOSCleaner:
         self.net_count = 0  # we'll have to keep track of how many networks we have so we don't have to count them each time we need to create a new one.
         self.net_metadata = dict()
 
-        self.net_metadata[self.default_net.network.compressed] = dict()
-        self.net_metadata[self.default_net.network.compressed]['host_count'] = 0
+        self.net_metadata[self.default_net.network_address.packed()] = dict()
+        self.net_metadata[self.default_net.network_address.packed()]['host_count'] = 0
 
         # Hostname obfuscation information
         self.hn_db = dict()  # hostname database
@@ -699,9 +699,9 @@ class SOSCleaner:
                 self.net_db.append(new_entry)
                 self.logger.con_out("Created New Obfuscated Network - %s" % new_net.with_prefixlen)
 
-                self.net_metadata[new_net.network.compressed] = dict()
+                self.net_metadata[new_net.network_address.packed()] = dict()
                 self.logger.info("Adding Entry to Network Metadata Database - %s" % new_net.with_prefixlen)
-                self.net_metadata[new_net.network.compressed]['host_count'] = 0
+                self.net_metadata[new_net.network_address.packed()]['host_count'] = 0
             else:
                 self.logger.info("Network already exists in database. Not obfuscating. - %s" % network)
 
@@ -713,7 +713,7 @@ class SOSCleaner:
         '''
         This will take an IP address and return back the obfuscated network that it belongs to
         This is called by the _ip4_2_db function
-        The value returned is a string that is the network address for the given network - IPv4Network.network.compressed
+        The value returned is a string that is the network address for the given network - IPv4Network.network_address.packed()
         This can be used to create a new obfuscated IP address for this value
         '''
         try:
