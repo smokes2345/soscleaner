@@ -128,8 +128,8 @@ class SOSCleaner:
         self.kw_db = dict()  # keyword database
         self.kw_count = 0
 
-        self.magic = magic.open(magic.MAGIC_NONE)
-        self.magic.load()
+        #self.magic = magic.open(magic.MAGIC_NONE)
+        #self.magic.load()
 
         if options == None:
             self._get_options()
@@ -193,7 +193,7 @@ class SOSCleaner:
                     # i thought i'd already removed it. - jduncan
                     # if mode == '200' or mode == '444' or mode == '400':
                     #    skip_list.append(f)
-                    if 'text' not in self.magic.file(f_full):
+                    if 'text' not in magic.from_file(f_full):
                         skip_list.append(f)
 
         return skip_list
@@ -246,7 +246,7 @@ class SOSCleaner:
     def _extract_sosreport(self, path):
 
         self.logger.con_out("Beginning SOSReport Extraction")
-        compression_sig = self.magic.file(path).lower()
+        compression_sig = magic.from_file(path).lower()
         if 'directory' in compression_sig:
             self.logger.info('%s appears to be a %s - continuing', path, compression_sig)
             # Clear out origin_path as we don't have one
