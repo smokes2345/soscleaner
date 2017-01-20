@@ -22,11 +22,10 @@ app_version = fh.read().rstrip()
 fh.close()
 
 name = 'soscleaner'
-install_requires = ['python_magic']
 
 setup(
     name=name,
-    license = 'GPLv2',
+    license='GPLv2',
     version=app_version,
     description='To clean and filter sensitive data from a standard sosreport',
     author='Jamie Duncan',
@@ -34,13 +33,13 @@ setup(
     url='https://github.com/RedHatGov/SOSCleaner',
     download_url="https://github.com/RedHatGov/soscleaner/releases/tags/%s" % app_version,
     maintainer='Jamie Duncan',
-    maintainer_email = 'jduncan@redhat.com',
+    maintainer_email='jduncan@redhat.com',
     long_description='%s is an application to help obfuscate sensitive data from a standard sosreport' % name,
     package_dir={'': 'soscleaner'},
     test_suite='tests',
-    # packages=['python_magic'],
+    install_requires=['python_magic'],
     py_modules=['soscleaner'],
-    scripts = ['scripts/soscleaner'],
+    scripts=['scripts/soscleaner'],
     data_files=[
             ('/usr/share/doc/%s-%s' % (name, app_version), ['LICENSE']),
             ('/usr/share/man/man8', ['doc/soscleaner.8.gz']),
