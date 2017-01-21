@@ -618,7 +618,7 @@ class SOSCleaner:
         '''
         try:
             # this is going to get hacky
-            start_point = self.default_net.broadcast + 1  # this will return an IPv4Address object that is 129.0.0.0
+            start_point = self.default_net.broadcast_address + 1  # this will return an IPv4Address object that is 129.0.0.0
             x = start_point.compressed.split('.')  # break it apart
             new_octet = str(int(x[0]) + self.net_count)  # calculate the new first octet
 
@@ -718,10 +718,10 @@ class SOSCleaner:
         '''
         try:
             ip = IPv4Address(ip)  # re-cast as an IPv4 object
-            network = self.default_net.network
+            network = self.default_net.network_address
             for net in self.net_db:
                 if ip in net[0]:
-                    network = net[1].network  # we have a match! We'll return the proper obfuscated network
+                    network = net[1].network_address  # we have a match! We'll return the proper obfuscated network
 
             return network
 
