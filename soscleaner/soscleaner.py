@@ -35,6 +35,7 @@ import socket
 from optparse import OptionParser
 # from ipaddr import IPv4Network, IPv4Address, IPv6Network, IPv6Address
 from ipaddress import IPv4Address, IPv4Network, IPv6Address, IPv6Network
+from __future__ import generators
 
 
 class SOSCleaner:
@@ -776,7 +777,7 @@ class SOSCleaner:
         '''
         db = self.hn_db
         hn_found = False
-        for k, v in db.iteritems():
+        for k, v in db.items():
             if v == hn:  # the hostname is in the database
                 ret_hn = k
                 hn_found = True
