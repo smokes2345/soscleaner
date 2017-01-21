@@ -35,7 +35,6 @@ import socket
 from optparse import OptionParser
 # from ipaddr import IPv4Network, IPv4Address, IPv6Network, IPv6Address
 from ipaddress import IPv4Address, IPv4Network, IPv6Address, IPv6Network
-from __future__ import generators
 
 
 class SOSCleaner:
