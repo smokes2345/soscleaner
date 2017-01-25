@@ -133,6 +133,8 @@ class SOSCleaner:
 
         if options == None:
             self._get_options()
+        else:
+            self.options = options
 
     def _get_options(self):
         parser = OptionParser(usage="%prog [-ldfknqr] /path/to/sosreport", version="%prog 0.3.0")
