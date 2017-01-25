@@ -45,7 +45,7 @@ def main():
     if args:
         sosreport = args[0] #grab the sosreport path
 
-    cleaner.clean_report(options, sosreport)
+    cleaner.clean_report(sosreport)
 
 if __name__ == '__main__':
     main()
